@@ -201,8 +201,7 @@ class EasyLoading {
   GlobalKey<EasyLoadingContainerState>? get key => _key;
   GlobalKey<EasyLoadingProgressState>? get progressKey => _progressKey;
 
-  final List<EasyLoadingStatusCallback> _statusCallbacks =
-      <EasyLoadingStatusCallback>[];
+  final List<EasyLoadingStatusCallback> _statusCallbacks = <EasyLoadingStatusCallback>[];
 
   factory EasyLoading() => _instance;
   static final EasyLoading _instance = EasyLoading._internal();
@@ -266,6 +265,7 @@ class EasyLoading {
     double value, {
     String? status,
     EasyLoadingMaskType? maskType,
+    bool? dismissOnTap,
   }) async {
     assert(
       value >= 0.0 && value <= 1.0,
@@ -281,8 +281,7 @@ class EasyLoading {
 
     if (_instance.w == null || _instance.progressKey == null) {
       if (_instance.key != null) await dismiss(animation: false);
-      GlobalKey<EasyLoadingProgressState> _progressKey =
-          GlobalKey<EasyLoadingProgressState>();
+      GlobalKey<EasyLoadingProgressState> _progressKey = GlobalKey<EasyLoadingProgressState>();
       Widget w = EasyLoadingProgress(
         key: _progressKey,
         value: value,
@@ -290,7 +289,7 @@ class EasyLoading {
       _instance._show(
         status: status,
         maskType: maskType,
-        dismissOnTap: false,
+        dismissOnTap: dismissOnTap,
         w: w,
       );
       _instance._progressKey = _progressKey;
